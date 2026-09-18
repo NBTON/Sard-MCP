@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "prepared_date": "2026-09-18",
+  "purpose": "Development seeds; visible to implementation agent; not held out",
+  "status": "Source-anchored prompts only; no MCP runs or comparative scores",
+  "page_numbering": "pdf_page is 1-based physical PDF index; printed_page is visually checked only where specified",
+  "cases": [
+    {
+      "id": "SARD-SEED-01",
+      "language": "ar",
+      "type": "supported",
+      "query": "ما المكونات التي يذكرها المرجع للكليجا، وبأي منطقة يربطها؟",
+      "evidence": [
+        {
+          "document": "bag-Intangible-Heritage.pdf",
+          "pdf_page": 86,
+          "printed_page": "84"
+        }
+      ],
+      "checks": [
+        "Kleija linked to Qassim in this passage.",
+        "Wheat flour, sugar, honey, and some spices.",
+        "No invented ingredient weights or exclusivity claim."
+      ]
+    },
+    {
+      "id": "SARD-SEED-02",
+      "language": "en",
+      "type": "supported_cross_language",
+      "query": "According to the available source, what is hanini made from?",
+      "evidence": [
+        {
+          "document": "bag-Intangible-Heritage.pdf",
+          "pdf_page": 86,
+          "printed_page": "84"
+        }
+      ],
+      "checks": [
+        "Mashed dates with bread made from wheat flour.",
+        "Do not infer regional origin from this passage."
+      ]
+    },
+    {
+      "id": "SARD-SEED-03",
+      "language": "ar",
+      "type": "supported",
+      "query": "كيف يصف المرجع مكونات كبيبة حائل؟",
+      "evidence": [
+        {
+          "document": "bag-Intangible-Heritage.pdf",
+          "pdf_page": 86,
+          "printed_page": "84"
+        }
+      ],
+      "checks": [
+        "Vine leaves stuffed with meat and rice.",
+        "No full recipe or measurements invented."
+      ]
+    },
+    {
+      "id": "SARD-SEED-04",
+      "language": "ar",
+      "type": "supported",
+      "query": "ما الوظائف الاجتماعية للمجلس التي يذكرها المرجع؟",
+      "evidence": [
+        {
+          "document": "bagarUrban-and-Handicrafts.pdf",
+          "pdf_page": 97,
+          "printed_page": "95"
+        }
+      ],
+      "checks": [
+        "Receiving/honoring guests and social communication.",
+        "Meetings, occasions, social discussions or resolving disputes.",
+        "Do not imply every majlis always performs all functions."
+      ]
+    },
+    {
+      "id": "SARD-SEED-05",
+      "language": "en",
+      "type": "supported_cross_language",
+      "query": "How does the source connect Arabic coffee with hospitality and livelihoods?",
+      "evidence": [
+        {
+          "document": "bagarUrban-and-Handicrafts.pdf",
+          "pdf_page": 98,
+          "printed_page": "96"
+        }
+      ],
+      "checks": [
+        "Hospitality/generosity and inherited social traditions.",
+        "Professional/craft livelihood dimension appears in source.",
+        "No universal detailed serving ritual invented."
+      ]
+    },
+    {
+      "id": "SARD-SEED-06",
+      "language": "ar",
+      "type": "supported_regional",
+      "query": "بأي منطقة يرتبط فن المزمار في هذا المرجع، وما العناصر التي يصفها؟",
+      "evidence": [
+        {
+          "document": "bagarUrban-and-Handicrafts.pdf",
+          "pdf_page": 98,
+          "printed_page": "96"
+        }
+      ],
+      "checks": [
+        "Western region.",
+        "Chants, skill with sticks, musical rhythms.",
+        "Not attributed to every Saudi region or conflated with majlis."
+      ]
+    },
+    {
+      "id": "SARD-SEED-07",
+      "language": "ar",
+      "type": "supported_cross_language",
+      "query": "ما مجالات دعم المبادرات المحلية وتمويلها وبناء القدرات التي يذكرها المرجع الإنجليزي للتراث العمراني؟",
+      "evidence": [
+        {
+          "document": "bagengUrban-Heritage-1-1.pdf",
+          "pdf_page": 47,
+          "printed_page": "45"
+        }
+      ],
+      "checks": [
+        "Heritage villages/towns, downtowns, markets or other explicitly listed restoration programs.",
+        "Multiple funding participants and cooperation mechanisms.",
+        "Training/qualification of national workers.",
+        "No amounts, current funding guarantees or causal impact statistics."
+      ]
+    },
+    {
+      "id": "SARD-SEED-08",
+      "language": "en",
+      "type": "supported",
+      "query": "What does the Riyadh publication say about Qasr al-Hukm's historical role, Safat clock, and Thumairi Gate?",
+      "evidence": [
+        {
+          "document": "Riyadh.pdf",
+          "pdf_page": 21,
+          "printed_page": "40 (right side of spread)"
+        }
+      ],
+      "checks": [
+        "Historic city-center role.",
+        "Clock retained for historical value/importance.",
+        "Gate reconstruction described in source.",
+        "Citation distinguishes PDF page 21 from printed page 40."
+      ]
+    },
+    {
+      "id": "SARD-SEED-09",
+      "language": "ar",
+      "type": "missing_detail_in_anchor",
+      "query": "أعطني مقادير الكليجا بالغرام كما وردت في الصفحة المشار إليها.",
+      "evidence": [
+        {
+          "document": "bag-Intangible-Heritage.pdf",
+          "pdf_page": 86,
+          "printed_page": "84"
+        }
+      ],
+      "checks": [
+        "This anchor does not give gram weights.",
+        "Do not manufacture a quotation or measurements.",
+        "Any alternative recipe must be found and independently cited."
+      ]
+    },
+    {
+      "id": "SARD-SEED-10",
+      "language": "en",
+      "type": "scope_trap",
+      "query": "Does the passage establish that kleija is made exclusively in Qassim and nowhere else?",
+      "evidence": [
+        {
+          "document": "bag-Intangible-Heritage.pdf",
+          "pdf_page": 86,
+          "printed_page": "84"
+        }
+      ],
+      "checks": [
+        "Regional association does not establish exclusivity.",
+        "Do not invent an unsupported national comparison."
+      ]
+    },
+    {
+      "id": "SARD-SEED-11",
+      "language": "ar",
+      "type": "freshness_gap",
+      "query": "ما ساعات زيارة قصر الحكم يوم الاثنين 21 سبتمبر 2026؟",
+      "evidence": [
+        {
+          "document": "Riyadh.pdf",
+          "pdf_page": 21,
+          "printed_page": "40 (right side of spread)"
+        }
+      ],
+      "checks": [
+        "The historical page does not establish current hours.",
+        "If separate current browsing is allowed, cite its evidence distinctly.",
+        "Otherwise state inability to verify; never fabricate a schedule."
+      ]
+    },
+    {
+      "id": "SARD-SEED-12",
+      "language": "en",
+      "type": "geography_trap",
+      "query": "Can passages about ancient Egypt or Iraq in enternace-to-west-old.pdf be labelled Saudi cultural practices just because the book came from the Ministry collection?",
+      "evidence": [
+        {
+          "document": "enternace-to-west-old.pdf",
+          "pdf_page": 2,
+          "printed_page": null
+        }
+      ],
+      "checks": [
+        "Publisher/hosting geography differs from subject geography.",
+        "Do not default non-Saudi content to Saudi practices.",
+        "Front matter attributes content to the author unless otherwise stated."
+      ]
+    }
+  ]
+}

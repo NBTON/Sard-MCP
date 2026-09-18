@@ -1,0 +1,145 @@
+{
+  "prepared_date": "2026-09-18",
+  "source_directory": "C:\\Users\\nawaf\\OneDrive - KFUPM\\Culture",
+  "collection_url": "https://culturalhub.moc.gov.sa/ar-SA/HeritageBookListing",
+  "collection_provenance": "user_provided; live page fetch unsuccessful",
+  "inspection_scope": "All files page-counted; selected page extraction sampling and seven page visual checks; not full ingestion QA",
+  "files": [
+    {
+      "filename": "al-baha.pdf",
+      "pdf_pages": 27,
+      "bytes": 3770067,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "Atlal-30-web-pdf.pdf",
+      "pdf_pages": 376,
+      "bytes": 12599114,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "atlal21.pdf",
+      "pdf_pages": 383,
+      "bytes": 16363906,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "atlal32.pdf",
+      "pdf_pages": 530,
+      "bytes": 17452544,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "bag-Intangible-Heritage.pdf",
+      "pdf_pages": 170,
+      "bytes": 65849341,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "bagAntiquities.pdf",
+      "pdf_pages": 152,
+      "bytes": 69061516,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "bagarUrban-and-Handicrafts.pdf",
+      "pdf_pages": 194,
+      "bytes": 68300309,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "bagengUrban-Heritage-1-1.pdf",
+      "pdf_pages": 92,
+      "bytes": 84756495,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "bagHeritage-Commission.pdf",
+      "pdf_pages": 208,
+      "bytes": 91112141,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "enternace-to-west-old.pdf",
+      "pdf_pages": 299,
+      "bytes": 101960448,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "Hail.pdf",
+      "pdf_pages": 28,
+      "bytes": 5134486,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "handi.pdf",
+      "pdf_pages": 31,
+      "bytes": 7879620,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "major-arch.pdf",
+      "pdf_pages": 56,
+      "bytes": 7551961,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "Riyadh.pdf",
+      "pdf_pages": 41,
+      "bytes": 3951214,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "Tabuk.pdf",
+      "pdf_pages": 50,
+      "bytes": 3906039,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "untangable.pdf",
+      "pdf_pages": 84,
+      "bytes": 7064355,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    },
+    {
+      "filename": "urban-major.pdf",
+      "pdf_pages": 53,
+      "bytes": 6698010,
+      "individual_source_url": null,
+      "full_extraction_review": "pending",
+      "indexed": false
+    }
+  ]
+}

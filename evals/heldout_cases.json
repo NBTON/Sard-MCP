@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "prepared_date": "2026-09-19",
+  "purpose": "Held-out retrieval benchmark; authored after extraction from indexed non-anchor passages; run once after tuning freeze",
+  "status": "Questions and expected evidence only; no MCP runs or scores yet",
+  "page_numbering": "pdf_page is 1-based physical PDF index; printed_page only where visually verified",
+  "cases": [
+    {
+      "id": "SARD-HELD-01",
+      "language": "ar",
+      "type": "supported",
+      "query": "ما العناصر التسعة المسجلة في القائمة التمثيلية لليونسكو التي يذكرها مرجع التراث غير المادي؟",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 33, "printed_page": null}],
+      "checks": [
+        "Nine elements: date palms, falconry, Najdi Ardah, Arabic coffee, Arab majlis, mizmar, Al-Qatt Al-Asiri, Sadu weaving, Arabic calligraphy.",
+        "Listed as the Representative List count in this passage."
+      ]
+    },
+    {
+      "id": "SARD-HELD-02",
+      "language": "ar",
+      "type": "supported",
+      "query": "في أي سنوات أُدرج نخيل التمر والسدو والخط العربي في اليونسكو حسب المرجع؟",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 61, "printed_page": null}],
+      "checks": [
+        "Date palms 2019, Sadu 2020, Arabic calligraphy 2021.",
+        "Years as stated in this source; no claim about other lists."
+      ]
+    },
+    {
+      "id": "SARD-HELD-03",
+      "language": "ar",
+      "type": "supported_regional",
+      "query": "ما ثوب المتروك (المجنب) وأين يلبس حسب المرجع؟",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 76, "printed_page": null}],
+      "checks": [
+        "Traditional women's dress distinctive to the Asir region.",
+        "Not generalized to all Saudi regions."
+      ]
+    },
+    {
+      "id": "SARD-HELD-04",
+      "language": "en",
+      "type": "supported",
+      "query": "According to the source, what are the first three cups of coffee called and what does each signify?",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 135, "printed_page": null}],
+      "checks": [
+        "Al-Haif (host drinks first, safety), Ad-Daif (guest welcome), Al-Kaif (enjoyment).",
+        "Names as given in this passage; not presented as universal ritual."
+      ]
+    },
+    {
+      "id": "SARD-HELD-05",
+      "language": "ar",
+      "type": "supported_regional",
+      "query": "بماذا تتميز منطقة تبوك من الصناعات التقليدية حسب المرجع؟",
+      "evidence": [{"document": "bagarUrban-and-Handicrafts.pdf", "pdf_page": 57, "printed_page": null}],
+      "checks": [
+        "Land-trip/desert-requirement products, tents near Tabuk castle.",
+        "High quality, made by local craftspeople."
+      ]
+    },
+    {
+      "id": "SARD-HELD-06",
+      "language": "ar",
+      "type": "supported",
+      "query": "ما جهود هيئة التراث لتنمية قطاع الحرف اليدوية كما يصفها المرجع؟",
+      "evidence": [{"document": "bagarUrban-and-Handicrafts.pdf", "pdf_page": 73, "printed_page": null}],
+      "checks": [
+        "Training courses, programs, lectures, seminars for staff and sector members.",
+        "Capacity building across the Kingdom's regions."
+      ]
+    },
+    {
+      "id": "SARD-HELD-07",
+      "language": "en",
+      "type": "supported",
+      "query": "What does the English reference say about Madinah Station of the Hejaz Railway?",
+      "evidence": [{"document": "bagengUrban-Heritage-1-1.pdf", "pdf_page": 2, "printed_page": "90"}],
+      "checks": [
+        "Last station of the Hejaz Railway; opened 1326 AH/1908 AD; destroyed 1334 AH/1916 AD.",
+        "Volcanic stone architecture; restored into a historical museum."
+      ]
+    },
+    {
+      "id": "SARD-HELD-08",
+      "language": "ar",
+      "type": "supported_cross_language",
+      "query": "ماذا يذكر المرجع الإنجليزي عن قلعة الوجه وموقعها وتاريخ بنائها؟",
+      "evidence": [{"document": "bagengUrban-Heritage-1-1.pdf", "pdf_page": 11, "printed_page": null}],
+      "checks": [
+        "Al-Wajh Castle built in Tabuk before 1039 AH/1629 AD.",
+        "No invented details beyond the passage."
+      ]
+    },
+    {
+      "id": "SARD-HELD-09",
+      "language": "ar",
+      "type": "supported",
+      "query": "ما مبادرة الدرعية بيت العرضة وما فن العرضة السعودية؟",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 91, "printed_page": null}],
+      "checks": [
+        "Saudi Ardah combines poetry, sword play, and drumming; prominent at national/social occasions.",
+        "Initiative named Diriyah Bayt Al-Ardah."
+      ]
+    },
+    {
+      "id": "SARD-HELD-10",
+      "language": "ar",
+      "type": "supported_cross_language",
+      "query": "ما البرنامج التدريبي الذي نظمته هيئة التراث بالتعاون مع منصة مهارات جوجل؟",
+      "evidence": [{"document": "bagarUrban-and-Handicrafts.pdf", "pdf_page": 123, "printed_page": null}],
+      "checks": [
+        "Digital marketing skills training for artisans, about six months.",
+        "No invented graduate counts or outcomes."
+      ]
+    },
+    {
+      "id": "SARD-HELD-11",
+      "language": "ar",
+      "type": "supported",
+      "query": "ما الأماكن التي تضمها منطقة قصر الحكم في الرياض حسب الدليل؟",
+      "evidence": [{"document": "Riyadh.pdf", "pdf_page": 21, "printed_page": "40"}],
+      "checks": [
+        "Includes Qasr al-Hukm, Suwayqah complex, Al-Masmak square, Justice Square, Imam Turki mosque, Safat square, Imam Muhammad ibn Saud square, Al-Muaiqliah center, city wall and gates, Souq al-Zal.",
+        "Citation distinguishes PDF page 21 from printed page 40."
+      ]
+    },
+    {
+      "id": "SARD-HELD-12",
+      "language": "en",
+      "type": "supported",
+      "query": "What is the Bisht according to the source?",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 111, "printed_page": null}],
+      "checks": [
+        "Cloak of authentic Arab heritage fashion used for hundreds of years.",
+        "Varies in weight and design."
+      ]
+    },
+    {
+      "id": "SARD-HELD-13",
+      "language": "ar",
+      "type": "regional_trap",
+      "query": "هل العرضة النجدية من فنون المنطقة الغربية؟",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 33, "printed_page": null}],
+      "checks": [
+        "Najdi Ardah is Najd-associated, not western region; mizmar is the western-region art.",
+        "Do not relabel regions."
+      ]
+    },
+    {
+      "id": "SARD-HELD-14",
+      "language": "en",
+      "type": "regional_trap",
+      "query": "Is the Mutarak dress worn by women across all Saudi regions?",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 76, "printed_page": null}],
+      "checks": [
+        "Source specifies Asir women; no all-regions claim supported.",
+        "Do not generalize."
+      ]
+    },
+    {
+      "id": "SARD-HELD-15",
+      "language": "en",
+      "type": "freshness_gap",
+      "query": "What are the current ticket prices and opening hours of the Madinah Station museum?",
+      "evidence": [{"document": "bagengUrban-Heritage-1-1.pdf", "pdf_page": 2, "printed_page": "90"}],
+      "checks": [
+        "Historical page establishes museum conversion only, not prices or hours.",
+        "State inability to verify from these sources; never fabricate."
+      ]
+    },
+    {
+      "id": "SARD-HELD-16",
+      "language": "ar",
+      "type": "freshness_gap",
+      "query": "متى يقام مهرجان سوق عكاظ القادم وكم سعر التذكرة؟",
+      "evidence": [{"document": "bagengUrban-Heritage-1-1.pdf", "pdf_page": 3, "printed_page": null}],
+      "checks": [
+        "Source states an annual festival since 1428 AH/2007 AD; no next-edition date or price.",
+        "Never fabricate a schedule."
+      ]
+    },
+    {
+      "id": "SARD-HELD-17",
+      "language": "ar",
+      "type": "scope_trap",
+      "query": "هل يثبت تسجيل القهوة العربية أن جميع السعوديين يمارسون طقوسها بالطريقة نفسها؟",
+      "evidence": [{"document": "bagarUrban-and-Handicrafts.pdf", "pdf_page": 98, "printed_page": "96"}],
+      "checks": [
+        "Registration describes significance, not uniform practice.",
+        "Do not present a custom as a nationwide rule."
+      ]
+    },
+    {
+      "id": "SARD-HELD-18",
+      "language": "en",
+      "type": "missing_detail",
+      "query": "Give the hanini recipe with exact ingredient weights as stated on the source page.",
+      "evidence": [{"document": "bag-Intangible-Heritage.pdf", "pdf_page": 86, "printed_page": "84"}],
+      "checks": [
+        "This page gives ingredients without weights; no full recipe.",
+        "Do not manufacture measurements."
+      ]
+    },
+    {
+      "id": "SARD-HELD-19",
+      "language": "ar",
+      "type": "quote_trap",
+      "query": "هل توجد عبارة «القهوة إلزامية في كل مجلس» حرفيًا في المصادر؟ أعطني اقتباسًا حرفيًا إن وجد.",
+      "evidence": [],
+      "checks": [
+        "No such quotation exists in the inspected sources.",
+        "Do not fabricate the quotation."
+      ]
+    },
+    {
+      "id": "SARD-HELD-20",
+      "language": "ar",
+      "type": "geography_trap",
+      "query": "بما أن كتاب الحرف يذكر مكة المكرمة، هل كل ما فيه عن مكة؟",
+      "evidence": [{"document": "bagarUrban-and-Handicrafts.pdf", "pdf_page": 57, "printed_page": null}],
+      "checks": [
+        "The book covers many regions; the Tabuk passage is Tabuk content.",
+        "A mention does not relocate other content."
+      ]
+    }
+  ]
+}

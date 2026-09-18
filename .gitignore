@@ -1,0 +1,33 @@
+# Secrets and local environment — never commit real keys.
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.uv/
+
+# Generated corpus data, indexes, caches, logs (default lives outside Git under %LOCALAPPDATA%\SardMCP).
+# NOTE: data/ (curated transcriptions, catalog metadata, aliases) MUST be committed.
+*.db
+*.sqlite*
+*.sqlite3*
+*.npy
+*.npz
+index/
+cache/
+logs/
+*.log
+
+# Source and generated documents stay out of the public repo by default
+*.pdf
+*.pptx
+*.docx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

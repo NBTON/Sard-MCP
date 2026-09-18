@@ -1,0 +1,68 @@
+{
+  "bag-Intangible-Heritage.pdf": {
+    "title": "قطاع التراث الثقافي غير المادي (Intangible Cultural Heritage Sector)",
+    "title_provenance": "cover render + extracted cover text",
+    "publisher": "هيئة التراث (Heritage Commission)",
+    "publisher_provenance": "cover logo + page footers",
+    "geography": "Saudi Arabia",
+    "geography_provenance": "cover + content sample (Kingdom heritage strategy; Qassim/Hail food pages)",
+    "topics": "intangible heritage, food, hospitality, performance",
+    "topic": "intangible heritage",
+    "region": null,
+    "source_url": null,
+    "source_url_status": "unresolved"
+  },
+  "bagarUrban-and-Handicrafts.pdf": {
+    "title": "قطاع الحرف والصناعات اليدوية (Urban Craft and Handicrafts)",
+    "title_provenance": "cover render + extracted cover text",
+    "publisher": "هيئة التراث (Heritage Commission)",
+    "publisher_provenance": "cover logo + page footers",
+    "geography": "Saudi Arabia",
+    "geography_provenance": "cover + content sample (Saudi society; western region mizmar)",
+    "topics": "crafts, hospitality, urban heritage",
+    "topic": "crafts",
+    "region": null,
+    "source_url": null,
+    "source_url_status": "unresolved"
+  },
+  "bagengUrban-Heritage-1-1.pdf": {
+    "title": "Urban Heritage Sector (قطاع التراث العمراني)",
+    "title_provenance": "cover render + extracted cover text",
+    "publisher": "هيئة التراث (Heritage Commission)",
+    "publisher_provenance": "cover logo + page headers",
+    "geography": "Saudi Arabia",
+    "geography_provenance": "content sample (Mecca, Jeddah, Tabuk, Riyadh-region sites)",
+    "topics": "urban heritage",
+    "topic": "urban heritage",
+    "region": null,
+    "source_url": null,
+    "source_url_status": "unresolved"
+  },
+  "Riyadh.pdf": {
+    "title": "المواقع التراثية في منطقة الرياض (Heritage Sites in Riyadh Region)",
+    "title_provenance": "cover render (series: سلسلة المواقع التراثية في المملكة العربية السعودية)",
+    "publisher": "هيئة التراث (Heritage Commission)",
+    "publisher_provenance": "cover logo",
+    "geography": "Saudi Arabia",
+    "geography_provenance": "cover series + content sample (Riyadh-region sites)",
+    "topics": "heritage sites, archaeology, urban heritage",
+    "topic": "heritage sites",
+    "region": "Riyadh",
+    "source_url": null,
+    "source_url_status": "unresolved"
+  },
+  "enternace-to-west-old.pdf": {
+    "title": "المدخل إلى فنون الشرق الأدنى القديم (مصر-العراق-الجزيرة العربية)",
+    "title_provenance": "PDF p2 catalog block (visible-text transcription)",
+    "author": "عبدالرحمن علي عبدالرحمن (content attributed to the author unless stated otherwise)",
+    "publisher": "وزارة الثقافة، هيئة التراث، ١٤٤٢هـ",
+    "publisher_provenance": "PDF p2 imprint",
+    "geography": "Egypt, Iraq, Arabian Peninsula (subject matter; must not be labelled Saudi practices)",
+    "geography_provenance": "title page",
+    "topics": "ancient history, art",
+    "topic": "history",
+    "region": null,
+    "source_url": null,
+    "source_url_status": "unresolved"
+  }
+}
