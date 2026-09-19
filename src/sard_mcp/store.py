@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS documents(
   geography TEXT, geography_provenance TEXT, topics TEXT, imported_at TEXT);
 CREATE TABLE IF NOT EXISTS pages(
   doc_id TEXT, pdf_page INTEGER, engine TEXT, raw_text TEXT, raw_chars INTEGER,
-  alt_chars INTEGER, arabic_ratio REAL, repl_count INTEGER,
+  alt_chars INTEGER, arabic_ratio REAL, repl_count INTEGER, ocr_conf REAL,
   printed_label TEXT, status TEXT DEFAULT 'pending', exclude_reason TEXT,
   PRIMARY KEY(doc_id, pdf_page));
 CREATE TABLE IF NOT EXISTS passages(
@@ -51,6 +51,10 @@ def open_db(path: Path) -> sqlite3.Connection:
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL;")
     conn.executescript(SCHEMA)
+    cols = [r[1] for r in conn.execute("PRAGMA table_info(pages)").fetchall()]
+    if "ocr_conf" not in cols:  # r1 databases predate the OCR fallback
+        conn.execute("ALTER TABLE pages ADD COLUMN ocr_conf REAL")
+        conn.commit()
     return conn
 
 
@@ -83,16 +87,17 @@ def upsert_document(conn: sqlite3.Connection, doc: dict) -> None:
 
 
 def upsert_page(conn: sqlite3.Connection, page: dict) -> None:
+    page = {**page, "ocr_conf": page.get("ocr_conf")}
     conn.execute(
         """INSERT INTO pages(doc_id, pdf_page, engine, raw_text, raw_chars, alt_chars, arabic_ratio,
-             repl_count, printed_label, status, exclude_reason)
+             repl_count, ocr_conf, printed_label, status, exclude_reason)
            VALUES(:doc_id, :pdf_page, :engine, :raw_text, :raw_chars, :alt_chars, :arabic_ratio,
-             :repl_count, :printed_label, :status, :exclude_reason)
+             :repl_count, :ocr_conf, :printed_label, :status, :exclude_reason)
            ON CONFLICT(doc_id, pdf_page) DO UPDATE SET engine=excluded.engine,
              raw_text=excluded.raw_text, raw_chars=excluded.raw_chars, alt_chars=excluded.alt_chars,
              arabic_ratio=excluded.arabic_ratio, repl_count=excluded.repl_count,
-             printed_label=excluded.printed_label, status=excluded.status,
-             exclude_reason=excluded.exclude_reason""",
+             ocr_conf=excluded.ocr_conf, printed_label=excluded.printed_label,
+             status=excluded.status, exclude_reason=excluded.exclude_reason""",
         page,
     )
 

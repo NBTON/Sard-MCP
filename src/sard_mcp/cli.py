@@ -16,9 +16,10 @@ from pathlib import Path
 from . import chunk as C
 from . import embed as E
 from . import extract as X
+from . import ocr as OCR
 from . import store
 from .config import PROJECT_ROOT, Settings, load_settings
-from .normalize import normalize_search
+from .normalize import arabic_ratio, normalize_search
 
 DATA_DIR = PROJECT_ROOT / "data"
 DEMO_PAGES = [  # (filename, pdf_page) reviewed anchors
@@ -106,7 +107,24 @@ def gate_page(info: dict, is_reviewed: bool) -> tuple[str, str]:
     return "approved", ""
 
 
-def build_passages(doc_id: str, pdf_page: int, info: dict, meta: dict, rev: dict | None) -> list[dict]:
+def gate_ocr(res: dict) -> tuple[str, str]:
+    """Return (status, reason) for a local-OCR page result."""
+    if "error" in res:
+        return "excluded", res["error"].split(":")[0]
+    text = res.get("text", "")
+    if not text.strip():
+        return "excluded", "ocr_blank_or_no_text"
+    if len(text) < MIN_PAGE_CHARS:
+        return "excluded", "ocr_too_short"
+    if res.get("words", 0) < OCR.MIN_WORDS:
+        return "excluded", "ocr_too_few_words"
+    if res.get("mean_conf", 0.0) < OCR.MIN_CONF:
+        return "excluded", "ocr_low_confidence"
+    return "approved", ""
+
+
+def build_passages(doc_id: str, pdf_page: int, info: dict, meta: dict, rev: dict | None,
+                   ocr: bool = False) -> list[dict]:
     lang = "ar" if info["arabic_ratio"] >= 0.5 else "en"
     if rev:
         paras, out = rev["paragraphs"], []
@@ -129,12 +147,13 @@ def build_passages(doc_id: str, pdf_page: int, info: dict, meta: dict, rev: dict
                 })
                 ordinal += 1
         return out
+    derivation = "ocr" if ocr else "extracted"
     return [{
         "pid": f"{doc_id}:p{pdf_page:03d}:{c['ordinal']:02d}",
         "doc_id": doc_id, "pdf_page": pdf_page, "ordinal": c["ordinal"],
         "text_raw": c["text"], "text_search": normalize_search(c["text"]),
-        "text_reviewed": None, "derivation": "extracted",
-        "content_hash": store.content_hash("extracted", c["text"]),
+        "text_reviewed": None, "derivation": derivation,
+        "content_hash": store.content_hash(derivation, c["text"]),
         "tokens": c["tokens"],
         "region": meta.get("region"), "topic": meta.get("topic"), "lang": lang,
     } for c in C.chunk_text(info["text"])]
@@ -167,7 +186,46 @@ def cmd_inventory(settings: Settings) -> int:
     return 0
 
 
-def _selection_stats(settings: Settings, selection: dict) -> tuple[list[dict], int, int]:
+def resolve_pages(settings: Settings, pdf: Path, wanted: list[int],
+                  ocr_enabled: bool, ocr_refresh: bool, ocr_workers: int) -> dict[int, dict]:
+    """Extract every wanted page; OCR fallback for blank/short ones (no writes).
+
+    Returns {page: {"info", "rev"-agnostic status/reason, "ocr", "ocr_res"}}.
+    OCR runs outside any db transaction; results are cached on disk.
+    """
+    infos = {p: X.extract_page(pdf, p - 1) for p in wanted}
+    ocr_res: dict[int, dict] = {}
+    if ocr_enabled:
+        need = [p for p in wanted
+                if gate_page(infos[p], False)[1] in ("blank_or_no_text", "too_short")]
+        if need:
+            ocr_res = OCR.ocr_doc_pages(
+                pdf, need, X.sha256_file(pdf), settings.home / "ocr",
+                workers=ocr_workers, refresh=ocr_refresh)
+    resolved = {}
+    for p in wanted:
+        info = infos[p]
+        status, reason = gate_page(info, False)
+        used_ocr = False
+        if ocr_enabled and reason in ("blank_or_no_text", "too_short") and p in ocr_res:
+            res = ocr_res[p]
+            status, reason = gate_ocr(res)
+            if status == "approved" or "error" not in res:
+                info = {"engine": OCR.ENGINE_LABEL, "text": res.get("text", ""),
+                        "arabic_ratio": round(arabic_ratio(res.get("text", "")), 3),
+                        "pdfium_chars": 0, "pypdf_chars": 0,
+                        "repl_count": 0, "errors": {}}
+                used_ocr = True
+            else:
+                reason = f"ocr_{reason}" if not reason.startswith("ocr") else reason
+        resolved[p] = {"info": info, "status": status, "reason": reason,
+                       "ocr": used_ocr, "ocr_res": ocr_res.get(p)}
+    return resolved
+
+
+def _selection_stats(settings: Settings, selection: dict, ocr_enabled: bool = False,
+                     ocr_refresh: bool = False, ocr_workers: int = 4
+                     ) -> tuple[list[dict], int, int]:
     """Dry-run stats: per-page rows, total tokens, total chunks (no writes)."""
     doc_meta = load_json("doc_meta.json")
     rev_idx = reviewed_index()
@@ -178,17 +236,22 @@ def _selection_stats(settings: Settings, selection: dict) -> tuple[list[dict], i
         if not pdf.exists():
             rows.append({"doc": doc, "error": "missing file"})
             continue
-        all_pages = range(1, X.page_count(pdf) + 1) if pages is None else sorted(pages)
+        n_pages = X.page_count(pdf)
+        wanted = list(range(1, n_pages + 1)) if pages is None else sorted(pages)
         meta = doc_meta.get(doc, {})
-        for p in all_pages:
-            info = X.extract_page(pdf, p - 1)
+        resolved = resolve_pages(settings, pdf, wanted, ocr_enabled, ocr_refresh, ocr_workers)
+        for p in wanted:
+            r = resolved[p]
+            info = r["info"]
             rev = rev_idx.get((doc, p))
-            status, reason = gate_page(info, rev is not None)
+            status, reason = ("approved", "reviewed_transcription") if rev else (r["status"], r["reason"])
             row = {"doc": doc, "pdf_page": p, "engine": info["engine"],
                    "chars": len(info["text"]), "repl": info["repl_count"],
                    "status": status, "reason": reason}
+            if r["ocr_res"] and "mean_conf" in r["ocr_res"]:
+                row["ocr_conf"] = r["ocr_res"]["mean_conf"]
             if status == "approved":
-                passages = build_passages(doc, p, info, meta, rev)
+                passages = build_passages(doc, p, info, meta, rev, ocr=(r["ocr"] and not rev))
                 row["chunks"] = len(passages)
                 row["tokens"] = sum(c["tokens"] for c in passages)
                 tokens += row["tokens"]
@@ -197,13 +260,17 @@ def _selection_stats(settings: Settings, selection: dict) -> tuple[list[dict], i
     return rows, tokens, chunks
 
 
-def cmd_dry_run(settings: Settings, selection: dict) -> int:
-    rows, tokens, chunks = _selection_stats(settings, selection)
+def cmd_dry_run(settings: Settings, selection: dict, ocr_enabled: bool = False,
+                ocr_refresh: bool = False, ocr_workers: int = 4) -> int:
+    rows, tokens, chunks = _selection_stats(settings, selection, ocr_enabled, ocr_refresh, ocr_workers)
     approved = sum(1 for r in rows if r.get("status") == "approved")
     excluded = sum(1 for r in rows if r.get("status") == "excluded")
     est = E.estimate_cost_usd(tokens, settings)
     worst = est * E.RESERVE_MARGIN
     print(f"pages approved={approved} excluded={excluded} chunks={chunks} tokens~{tokens} overlap=0")
+    if ocr_enabled:
+        ocr_n = sum(1 for r in rows if r.get("engine") == OCR.ENGINE_LABEL and r.get("status") == "approved")
+        print(f"  (of which OCR-approved: {ocr_n})")
     print(f"estimated cost ${est:.4f} (worst-case reserve ${worst:.4f})")
     print(f"caps: first-index ${settings.first_index_budget_usd:.2f}, cumulative ${settings.cumulative_budget_usd:.2f}")
     for r in rows:
@@ -216,7 +283,8 @@ def cmd_dry_run(settings: Settings, selection: dict) -> int:
     return 0
 
 
-def cmd_import(settings: Settings, selection: dict, no_embed: bool) -> int:
+def cmd_import(settings: Settings, selection: dict, no_embed: bool, ocr_enabled: bool = False,
+               ocr_refresh: bool = False, ocr_workers: int = 4) -> int:
     doc_meta = load_json("doc_meta.json")
     rev_idx = reviewed_index()
     conn = store.open_db(settings.db_path)
@@ -231,11 +299,13 @@ def cmd_import(settings: Settings, selection: dict, no_embed: bool) -> int:
             continue
         meta = doc_meta.get(doc, {})
         n_pages = X.page_count(pdf)
-        wanted = range(1, n_pages + 1) if pages is None else sorted(pages)
+        checksum = X.sha256_file(pdf)
+        wanted = list(range(1, n_pages + 1)) if pages is None else sorted(pages)
+        resolved = resolve_pages(settings, pdf, wanted, ocr_enabled, ocr_refresh, ocr_workers)
         with conn:  # one transaction per document
             store.upsert_document(conn, {
                 "doc_id": doc, "filename": doc, "title": meta.get("title", Path(doc).stem),
-                "publisher": meta.get("publisher"), "checksum": X.sha256_file(pdf),
+                "publisher": meta.get("publisher"), "checksum": checksum,
                 "pdf_pages": n_pages, "source_url": meta.get("source_url"),
                 "source_url_status": meta.get("source_url_status", "unresolved"),
                 "geography": meta.get("geography"),
@@ -245,20 +315,23 @@ def cmd_import(settings: Settings, selection: dict, no_embed: bool) -> int:
             })
             new_pids: set[str] = set()
             for p in wanted:
-                info = X.extract_page(pdf, p - 1)
+                r = resolved[p]
+                info = r["info"]
                 rev = rev_idx.get((doc, p))
-                status, reason = gate_page(info, rev is not None)
+                status, reason = ("approved", "reviewed_transcription") if rev else (r["status"], r["reason"])
+                ocr_conf = (r["ocr_res"] or {}).get("mean_conf") if r["ocr"] else None
                 store.upsert_page(conn, {
                     "doc_id": doc, "pdf_page": p, "engine": info["engine"],
                     "raw_text": info["text"], "raw_chars": len(info["text"]),
                     "alt_chars": info["pypdf_chars"] if info["engine"] == "pdfium" else info["pdfium_chars"],
                     "arabic_ratio": info["arabic_ratio"], "repl_count": info["repl_count"],
+                    "ocr_conf": ocr_conf,
                     "printed_label": (rev or {}).get("printed_label") or parsed_label(doc, info["text"]),
                     "status": status, "exclude_reason": reason,
                 })
                 if status != "approved":
                     continue
-                for passage in build_passages(doc, p, info, meta, rev):
+                for passage in build_passages(doc, p, info, meta, rev, ocr=(r["ocr"] and not rev)):
                     store.upsert_passage(conn, passage)
                     new_pids.add(passage["pid"])
                     embed_items.append({
@@ -335,17 +408,28 @@ def add_selection(parser: argparse.ArgumentParser) -> None:
     g.add_argument("--all", action="store_true", help="every PDF in source dir")
 
 
+def add_ocr_options(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--ocr", action="store_true",
+                        help="local Tesseract OCR fallback for blank/short pages (cached)")
+    parser.add_argument("--ocr-refresh", action="store_true", help="re-OCR, ignoring the cache")
+    parser.add_argument("--ocr-workers", type=int, default=4, help="parallel OCR workers")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Sard corpus import (CLI-only)")
     sub = parser.add_subparsers(dest="cmd", required=True)
     sub.add_parser("inventory").set_defaults(func=lambda s, a: cmd_inventory(s))
     p = sub.add_parser("dry-run")
     add_selection(p)
-    p.set_defaults(func=lambda s, a: cmd_dry_run(s, parse_selection(a, s.source_dir)))
+    add_ocr_options(p)
+    p.set_defaults(func=lambda s, a: cmd_dry_run(
+        s, parse_selection(a, s.source_dir), a.ocr, a.ocr_refresh, a.ocr_workers))
     p = sub.add_parser("import")
     add_selection(p)
+    add_ocr_options(p)
     p.add_argument("--no-embed", action="store_true")
-    p.set_defaults(func=lambda s, a: cmd_import(s, parse_selection(a, s.source_dir), a.no_embed))
+    p.set_defaults(func=lambda s, a: cmd_import(
+        s, parse_selection(a, s.source_dir), a.no_embed, a.ocr, a.ocr_refresh, a.ocr_workers))
     sub.add_parser("budget").set_defaults(func=lambda s, a: cmd_budget(s))
     sub.add_parser("titles").set_defaults(func=lambda s, a: cmd_titles(s))
     args = parser.parse_args()

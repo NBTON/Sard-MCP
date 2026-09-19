@@ -97,3 +97,19 @@ def test_coverage_counts(conn):
     assert len(cov["documents"]) == 2
     assert cov["search_mode"] == "keyword_only"
     assert cov["embedding_model"] == "m"
+
+
+def test_hit_reports_stored_derivation(conn):
+    """OCR passages must surface derivation='ocr', not the old default."""
+    text = "نقوش منطقة نجران الأثرية"
+    with conn:
+        store.upsert_passage(conn, {
+            "pid": "B.pdf:p002:00", "doc_id": "B.pdf", "pdf_page": 2, "ordinal": 0,
+            "text_raw": text, "text_search": normalize_search(text), "text_reviewed": None,
+            "derivation": "ocr", "content_hash": store.content_hash("ocr", text),
+            "tokens": 5, "region": "Najran", "topic": "archaeology", "lang": "ar",
+        })
+    out = S.search(SearchInput(query="نقوش نجران"), SETTINGS, conn)
+    assert out["results"][0]["derivation"] == "ocr"
+    got = S.get_passage(PassageInput(pid="B.pdf:p002:00"), SETTINGS, conn)
+    assert got["derivation"] == "ocr"

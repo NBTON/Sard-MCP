@@ -1,9 +1,11 @@
 {
   "prepared_date": "2026-09-18",
+  "updated_date": "2026-09-19",
+  "corpus_revision": "r2",
   "source_directory": "C:\\Users\\nawaf\\OneDrive - KFUPM\\Culture",
   "collection_url": "https://culturalhub.moc.gov.sa/ar-SA/HeritageBookListing",
-  "collection_provenance": "user_provided; live page fetch unsuccessful",
-  "inspection_scope": "All files page-counted; selected page extraction sampling and seven page visual checks; not full ingestion QA",
+  "collection_provenance": "user_provided; live page fetch unsuccessful; not verified as the source of the 15 r2 books",
+  "inspection_scope": "r1: 17 files page-counted + sampled; r2: 15 scanned books fully OCRed and imported (3,913/4,560 pages approved)",
   "files": [
     {
       "filename": "al-baha.pdf",
@@ -11,7 +13,26 @@
       "bytes": 3770067,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
+    },
+    {
+      "filename": "Asir-Abha.pdf",
+      "pdf_pages": 177,
+      "bytes": 3594649,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Asir-Namas.pdf",
+      "pdf_pages": 215,
+      "bytes": 6902707,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "Atlal-30-web-pdf.pdf",
@@ -19,7 +40,8 @@
       "bytes": 12599114,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     },
     {
       "filename": "atlal21.pdf",
@@ -27,7 +49,8 @@
       "bytes": 16363906,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     },
     {
       "filename": "atlal32.pdf",
@@ -35,15 +58,17 @@
       "bytes": 17452544,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     },
     {
       "filename": "bag-Intangible-Heritage.pdf",
       "pdf_pages": 170,
       "bytes": 65849341,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "bagAntiquities.pdf",
@@ -51,23 +76,26 @@
       "bytes": 69061516,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     },
     {
       "filename": "bagarUrban-and-Handicrafts.pdf",
       "pdf_pages": 194,
       "bytes": 68300309,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "bagengUrban-Heritage-1-1.pdf",
       "pdf_pages": 92,
       "bytes": 84756495,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "bagHeritage-Commission.pdf",
@@ -75,15 +103,44 @@
       "bytes": 91112141,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
+    },
+    {
+      "filename": "Eastern-Ahsa-History.pdf",
+      "pdf_pages": 746,
+      "bytes": 11121585,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Eastern-Khobar.pdf",
+      "pdf_pages": 137,
+      "bytes": 2065724,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Eastern-Qatif.pdf",
+      "pdf_pages": 254,
+      "bytes": 5109844,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "enternace-to-west-old.pdf",
       "pdf_pages": 299,
       "bytes": 101960448,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "reviewed p2 only"
     },
     {
       "filename": "Hail.pdf",
@@ -91,7 +148,8 @@
       "bytes": 5134486,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     },
     {
       "filename": "handi.pdf",
@@ -99,7 +157,53 @@
       "bytes": 7879620,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
+    },
+    {
+      "filename": "Jazan-Farasan.pdf",
+      "pdf_pages": 100,
+      "bytes": 7215348,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Jazan-Mikhlaf-Sulaimani.pdf",
+      "pdf_pages": 1229,
+      "bytes": 26289850,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Jouf-Biladuna.pdf",
+      "pdf_pages": 122,
+      "bytes": 2571682,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Madinah-Antiquities.pdf",
+      "pdf_pages": 346,
+      "bytes": 18424429,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Madinah-Biladuna.pdf",
+      "pdf_pages": 149,
+      "bytes": 3838816,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "major-arch.pdf",
@@ -107,15 +211,62 @@
       "bytes": 7551961,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
+    },
+    {
+      "filename": "Makkah-Biladuna.pdf",
+      "pdf_pages": 308,
+      "bytes": 5913907,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Najran-Biladuna.pdf",
+      "pdf_pages": 164,
+      "bytes": 26940502,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Qassim-Buraidah.pdf",
+      "pdf_pages": 179,
+      "bytes": 3482366,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
+    },
+    {
+      "filename": "Qassim-Unaizah.pdf",
+      "pdf_pages": 258,
+      "bytes": 6387432,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "Riyadh.pdf",
       "pdf_pages": 41,
       "bytes": 3951214,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "reviewed p21 only"
+    },
+    {
+      "filename": "Saudi-Antiquities-Studies.pdf",
+      "pdf_pages": 176,
+      "bytes": 14111144,
+      "individual_source_url": null,
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "Tabuk.pdf",
@@ -123,7 +274,8 @@
       "bytes": 3906039,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     },
     {
       "filename": "untangable.pdf",
@@ -131,7 +283,8 @@
       "bytes": 7064355,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     },
     {
       "filename": "urban-major.pdf",
@@ -139,7 +292,8 @@
       "bytes": 6698010,
       "individual_source_url": null,
       "full_extraction_review": "pending",
-      "indexed": false
+      "indexed": false,
+      "indexed_scope": "not indexed"
     }
   ]
 }

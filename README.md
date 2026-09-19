@@ -42,6 +42,7 @@ client: `docs/CLIENT_INSTRUCTIONS.md`.
 uv run sard-import dry-run --docs "a.pdf,b.pdf"   # estimate before paying
 uv run sard-import import --docs "a.pdf,b.pdf"    # index (cached, idempotent)
 uv run sard-import import --all                   # everything that passes the gate
+uv run sard-import import --docs "scan.pdf" --ocr # local Tesseract fallback for scanned PDFs
 uv run python scripts/eval_seed.py                # dev fixtures (not held out)
 uv run python scripts/eval_seed.py --seed evals/heldout_cases.json
 ```

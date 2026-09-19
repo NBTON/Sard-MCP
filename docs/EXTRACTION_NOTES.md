@@ -1,4 +1,33 @@
-# Extraction notes (measured 18–19 Sep 2026)
+# Extraction notes (measured 18–19 Sep 2026; OCR section added for r2)
+
+## Local OCR fallback (r2, scanned regional books)
+
+All 15 new books have no text layer (4,560/4,560 pages blank under both
+engines), so text comes from local Tesseract 5.4.0 (`ara+eng`,
+tessdata_best, PSM 6, ~300 DPI grayscale renders capped at 3,600 px,
+per-page timeout, results cached by checksum+page under
+`%LOCALAPPDATA%\SardMCP\ocr`). Paid OCR was explicitly not needed.
+
+Gate (validated on renders, `quality-sample/r2`): mean Tesseract word
+confidence ≥ 60, ≥ 5 words, ≥ 50 chars. Measured separation: clean prose
+68–91, decorative titles 69–78, photo/artwork garbage ~35, two-column
+verse ~45, blank 0 words. `ara`-only OCR mangled embedded Latin terms
+(`SURFACE`→`501217405`); `ara+eng` reads them correctly with no Arabic
+regression (99% normalized similarity on a control page). The `eng` model
+also emits ~100k isolated 1–3 letter fragments corpus-wide (`a`, `ee`,
+`oe` — misread diacritics); a post-filter drops short Latin tokens unless
+a neighbouring token carries a 4+ letter Latin run, keeping bibliographies
+(`G. Mursi`, `Alois Musil`) and terms (`SURFACE`, `TYPOLOGY`) while
+removing ~80% of the fragments. Residual 4+ letter misreads persist;
+display quotes from OCR pages need the same care as r1 raw passages.
+
+Implementation notes: pypdfium2 document loads are not thread-safe, so
+renders are serialized behind a lock while tesseract subprocesses run in
+parallel (`--ocr-workers`, `OMP_THREAD_LIMIT=1`); one oversized render
+once hung tesseract, hence the pixel cap + timeout. OCR pages store
+engine `ocr-tesseract-ara-eng`, derivation `ocr`, and `ocr_conf` per page.
+
+## Dual-engine extraction (r1, preserved)
 
 Engines compared on 7 anchor pages with `scripts/extract_compare.py`
 (raw outputs + page renders under `%LOCALAPPDATA%\SardMCP\extract-compare\`;

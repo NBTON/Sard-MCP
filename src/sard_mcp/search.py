@@ -57,7 +57,7 @@ class NotFoundError(ValueError):
 def _display(row: dict) -> tuple[str, str]:
     if row.get("text_reviewed"):
         return row["text_reviewed"], "reviewed_transcription"
-    return row["text_raw"], "extracted"
+    return row["text_raw"], row.get("derivation") or "extracted"
 
 
 def _filters_met(row: dict, params: SearchInput) -> bool:
