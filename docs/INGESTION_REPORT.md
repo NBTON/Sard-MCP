@@ -1,8 +1,72 @@
-# Ingestion report (19 Sep 2026, corpus rev r2)
+# Ingestion report (19 Sep 2026, corpus rev r3)
 
 Index: `%LOCALAPPDATA%\SardMCP\sard.db`. Pre-update backup:
-`%LOCALAPPDATA%\SardMCP\backups\sard_r1_20260919-165103.db` (669 passages,
-verified count-identical). The r1 section below is preserved unchanged.
+`%LOCALAPPDATA%\SardMCP\backups\sard_r2_20260919-210118.db` (9,434 passages,
+verified count-identical; the r1 backup is also kept). The r1+r2 sections
+below are preserved unchanged.
+
+## Rev r3 incremental update (indexed 2026-09-19T21:12 local)
+
+Scope: the 12 remaining unindexed PDFs (1,978 pages): 3 Atlal journals +
+2 sector books via text extraction, 7 regional booklets via the local-OCR
+fallback (extended to font-corrupt pages, `cli.resolve_pages`). The 20
+r1+r2 documents are byte-identical (passage-hash match) and untouched:
+9,434 passages, 9,434 vectors, 6 reviewed pages, 49 cached queries all
+preserved. The unimported rest of enternace-to-west-old.pdf (5 passages)
+and the Riyadh exclusion set (9 passages) are unchanged.
+
+Text group (no `--ocr`): the Atlal journals need pypdf on every page
+(PDFium reverses their Arabic word order; verified on renders,
+`quality-sample/r3`, `docs/EXTRACTION_NOTES.md`). `extract_page` now
+prefers pypdf for the three Atlal files; all other docs keep the
+script-ratio rule. Filename note: `atlal21.pdf` holds Atlal vol. 31
+(cover + 136 running heads); the name is kept as an exact locator.
+
+Result: 1,774 approved pages -> 4,964 passages, 4,964 vectors. Totals:
+32 documents, 6,113 approved pages, 14,398 passages, 14,398 vectors,
+0 passages without vectors.
+
+| Document | Pages appr/excl/total | Passages | Notes |
+|---|---|---:|---|
+| Atlal-30-web-pdf.pdf | 347/29/376 | 1,045 | vol. 30 (1442H/2020AD); EN Part One + AR Part Two |
+| atlal21.pdf | 354/29/383 | 1,156 | content is Atlal vol. 31 (1444H/2022AD) |
+| atlal32.pdf | 498/32/530 | 1,578 | vol. 32 (1444H/2022AD) |
+| bagAntiquities.pdf | 130/22/152 | 209 | Antiquities Sector; AR then EN sections |
+| bagHeritage-Commission.pdf | 195/13/208 | 316 | Heritage Commission survey |
+| al-baha.pdf | 19/8/27 | 61 | OCR; Al-Baha heritage sites |
+| Hail.pdf | 21/7/28 | 73 | OCR; Hail heritage sites |
+| Tabuk.pdf | 33/17/50 | 57 | OCR; Tabuk heritage sites |
+| handi.pdf | 26/5/31 | 70 | OCR; handicrafts nationwide |
+| major-arch.pdf | 47/9/56 | 174 | OCR; major archaeological sites |
+| untangable.pdf | 56/28/84 | 123 | OCR; intangible heritage elements |
+| urban-major.pdf | 48/5/53 | 102 | OCR; major urban-heritage sites |
+
+Exclusion reasons (204 total, per-page detail in `pages.exclude_reason`):
+text `blank_or_no_text` 72 (blank/plate pages, spot-verified) +
+`too_short` 53 (covers, dividers, photo footers); OCR
+`ocr_low_confidence` 72 + `ocr_too_short` 6 + `ocr_blank_or_no_text`
+1. Zero OCR engine errors across 323 pages. Five low-confidence
+exclusions are real content whose spread layout depresses PSM-6
+confidence (al-baha p4, Hail p6/p22, Tabuk p40/p44-partial); the 60-gate
+is kept because the 50-59 band also holds garbage pages (no clean
+threshold; evidence in `quality-sample/r3/booklet_excluded_ocr.txt`).
+al-baha p4's text (Heritage Commission intro) duplicates approved pages
+in sibling booklets. Booklet spreads interleave the two sides
+line-by-line in OCR text: retrieval-OK, display quotes need care.
+
+Bibliographic metadata for all 12 was verified against rendered covers
+and title pages (`data/doc_meta.json`, per-field provenance).
+Per-publication source URLs remain unresolved for all 12 (as for r1+r2);
+nothing was invented.
+
+Duplicate check: normalized-text hashes of all 323 booklet OCR pages ->
+zero cross-document duplicates (no renamed copies). Idempotency:
+re-running both r3 imports embeds 0 new passages ($0.00) and changes no
+counts (`import_r3_text_repeat.log`, `import_r3_ocr_repeat.log`).
+Stage-3 verify re-ran both imports again (21:42): cached 4,304 + 660,
+embedded 0 ($0.00), counts unchanged at 14,398 passages / 14,398 vectors
+with identical per-doc counts (`idempotency_r3_20260919.json`); only
+`indexed_at` advanced.
 
 ## Rev r2 incremental update (indexed 2026-09-19T19:30:40 local)
 

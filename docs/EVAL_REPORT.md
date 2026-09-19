@@ -1,6 +1,56 @@
-# Evaluation report (19 Sep 2026, index r2, 9,434 passages)
+# Evaluation report (19 Sep 2026, index r3, 14,398 passages)
 
-## Rev r2 runs (new; r1 results preserved below)
+## Rev r3 runs (new; r1/r2 results preserved below)
+
+- Seed fixtures (`evals/seed_cases.json`): **6/8** supporting-passage
+  hit@5 (was 7/8 on r2). Trace:
+  `%LOCALAPPDATA%\SardMCP\eval_seed_cases_20260919-213352.json`.
+  New miss SEED-08 (English Qasr al-Hukm/Safat/Thumairi): the anchor
+  (Riyadh p21) sits at ranks 8–9; rank 1 is urban-major p48 (Safat
+  square/clock — directly answers part of the query) with other
+  urban-heritage rivals. Same drift class as the known SEED-05 miss
+  (still out of the top 10; rank 1 bagar p106, Arabian coffee and
+  hospitality, directly answers it). Evidence intact: Riyadh p21 holds
+  9 passages / 9 vectors, bagar p98 2/2.
+- Held-out benchmark (`evals/heldout_cases.json`): **10/12 = 83.3%**
+  hit@5 (was 11/12 on r1 and r2). Trace:
+  `%LOCALAPPDATA%\SardMCP\eval_heldout_cases_20260919-213357.json`.
+  New miss HELD-08 (Arabic query → English Al-Wajh Castle page): the
+  anchor (bageng p11) sits at ranks 6–7 under the lang=en filter; the
+  top 5 are Atlal English archaeology pages (rank 1: Sahal Matar and
+  al-Mabiyat forts — same castle topic). The English pool grew sharply
+  in r3 (Atlal Part One + bag English sections). The pre-existing
+  HELD-10 glossary gap is unchanged. The ranker was deliberately not
+  retuned — same policy as r2; chasing one held-out case would overfit
+  the frozen benchmark.
+- Trap handling (manual judgment, all retrieved evidence sensible):
+  SEED freshness/scope/missing-detail traps still surface their anchors
+  (Riyadh p21 ranks 1–2 for the hours query; FOOD-84 anchor rank 1–2
+  for the recipe/exclusivity queries). The SEED-12 geography anchor
+  was already out of the top 5 at r2 (no r3 change). HELD traps
+  retrieve correctly-attributed evidence.
+- New-corpus verification (16 live MCP-protocol queries over stdio,
+  AR+EN, ≥1 per Atlal vol + per heritage vol + per booklet, trace
+  `%LOCALAPPDATA%\SardMCP\verify_r3_20260919-213254.json`):
+  **13/16** exact-page hit@5, all hybrid; every query has a
+  same-document hit at ranks 1–2 except HAIL (target Hail p10 hits
+  rank 4 for the short query "جبة محطة قوافل تجارية"). The three
+  non-exact cases are rank drift with correct evidence: ATL31
+  same-article pages p183/184 rank 1–2 (expected p191, same
+  السليل ووادي الدواسر survey article); BAGANT
+  same-section adjacent pages p43/p41 rank 1/4 (expected p42);
+  HAIL same-topic rock-art pages. `get_source_passage` round-trip ok
+  (599 chars + citation metadata); coverage 32 docs / 6,113 approved
+  pages / 14,398 vectors.
+- Tests: `pytest -q` (with `PYTHONUTF8=1` on this machine's cp1252
+  console): **45 passed** — 34 carried over, 7 from r2, 4 new r3
+  (Atlal engine rule, OCR fallback for font-corrupt pages, and
+  related regressions).
+- Idempotency: repeating both r3 imports embeds 0 new passages
+  ($0.00; cached 4,304 + 660, all OCR cache hits); passage/vector
+  counts unchanged at 14,398 with identical per-doc counts.
+
+## Rev r2 runs (preserved; r1 results below)
 
 - Seed fixtures (`evals/seed_cases.json`): **7/8** supporting-passage
   hit@5 (was 8/8 on r1). Trace:

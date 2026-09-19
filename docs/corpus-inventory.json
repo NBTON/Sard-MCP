@@ -1,20 +1,20 @@
 {
   "prepared_date": "2026-09-18",
   "updated_date": "2026-09-19",
-  "corpus_revision": "r2",
+  "corpus_revision": "r3",
   "source_directory": "C:\\Users\\nawaf\\OneDrive - KFUPM\\Culture",
   "collection_url": "https://culturalhub.moc.gov.sa/ar-SA/HeritageBookListing",
   "collection_provenance": "user_provided; live page fetch unsuccessful; not verified as the source of the 15 r2 books",
-  "inspection_scope": "r1: 17 files page-counted + sampled; r2: 15 scanned books fully OCRed and imported (3,913/4,560 pages approved)",
+  "inspection_scope": "r1: 17 files page-counted + sampled; r2: 15 scanned books fully OCRed and imported (3,913/4,560 pages approved); r3: remaining 12 files imported (1,774/1,978 pages approved: 5 text + 7 OCR booklets)",
   "files": [
     {
       "filename": "al-baha.pdf",
       "pdf_pages": 27,
       "bytes": 3770067,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "Asir-Abha.pdf",
@@ -39,27 +39,27 @@
       "pdf_pages": 376,
       "bytes": 12599114,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "atlal21.pdf",
       "pdf_pages": 383,
       "bytes": 16363906,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "atlal32.pdf",
       "pdf_pages": 530,
       "bytes": 17452544,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "bag-Intangible-Heritage.pdf",
@@ -75,9 +75,9 @@
       "pdf_pages": 152,
       "bytes": 69061516,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "bagarUrban-and-Handicrafts.pdf",
@@ -102,9 +102,9 @@
       "pdf_pages": 208,
       "bytes": 91112141,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full"
     },
     {
       "filename": "Eastern-Ahsa-History.pdf",
@@ -147,18 +147,18 @@
       "pdf_pages": 28,
       "bytes": 5134486,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "handi.pdf",
       "pdf_pages": 31,
       "bytes": 7879620,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "Jazan-Farasan.pdf",
@@ -210,9 +210,9 @@
       "pdf_pages": 56,
       "bytes": 7551961,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "Makkah-Biladuna.pdf",
@@ -273,27 +273,27 @@
       "pdf_pages": 50,
       "bytes": 3906039,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "untangable.pdf",
       "pdf_pages": 84,
       "bytes": 7064355,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     },
     {
       "filename": "urban-major.pdf",
       "pdf_pages": 53,
       "bytes": 6698010,
       "individual_source_url": null,
-      "full_extraction_review": "pending",
-      "indexed": false,
-      "indexed_scope": "not indexed"
+      "full_extraction_review": "complete",
+      "indexed": true,
+      "indexed_scope": "full (OCR)"
     }
   ]
 }

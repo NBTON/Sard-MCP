@@ -36,6 +36,17 @@ def pypdf_text(path: Path, idx0: int) -> str:
     return reader.pages[idx0].extract_text() or ""
 
 
+# Atlal journal PDFs use a font/encoding where PDFium emits Arabic words in
+# reverse order while pypdf preserves correct order and completeness
+# (verified on renders, quality-sample/r3, docs/EXTRACTION_NOTES.md).
+# atlal21.pdf holds Atlal vol. 31; the filename is a misnomer, kept as locator.
+PYPDF_ONLY_DOCS = frozenset({
+    "Atlal-30-web-pdf.pdf",
+    "atlal21.pdf",
+    "atlal32.pdf",
+})
+
+
 def extract_page(path: Path, idx0: int) -> dict:
     """Extract one page (0-based) with both engines and pick by script ratio."""
     errors: dict[str, str] = {}
@@ -49,7 +60,12 @@ def extract_page(path: Path, idx0: int) -> dict:
         t_pypdf, errors["pypdf"] = "", f"{type(exc).__name__}: {exc}"
 
     ratio = arabic_ratio(t_pdfium) if t_pdfium.strip() else arabic_ratio(t_pypdf)
-    if t_pdfium.strip() and (ratio >= 0.5 or not t_pypdf.strip()):
+    if path.name in PYPDF_ONLY_DOCS:
+        if t_pypdf.strip():
+            engine, text = "pypdf", t_pypdf
+        else:
+            engine, text = "pdfium", t_pdfium
+    elif t_pdfium.strip() and (ratio >= 0.5 or not t_pypdf.strip()):
         engine, text = "pdfium", t_pdfium
     else:
         engine, text = "pypdf", t_pypdf

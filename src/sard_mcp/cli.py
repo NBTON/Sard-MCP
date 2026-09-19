@@ -197,7 +197,8 @@ def resolve_pages(settings: Settings, pdf: Path, wanted: list[int],
     ocr_res: dict[int, dict] = {}
     if ocr_enabled:
         need = [p for p in wanted
-                if gate_page(infos[p], False)[1] in ("blank_or_no_text", "too_short")]
+                if gate_page(infos[p], False)[1] in ("blank_or_no_text", "too_short",
+                                                     "high_replacement_ratio")]
         if need:
             ocr_res = OCR.ocr_doc_pages(
                 pdf, need, X.sha256_file(pdf), settings.home / "ocr",
@@ -207,7 +208,8 @@ def resolve_pages(settings: Settings, pdf: Path, wanted: list[int],
         info = infos[p]
         status, reason = gate_page(info, False)
         used_ocr = False
-        if ocr_enabled and reason in ("blank_or_no_text", "too_short") and p in ocr_res:
+        if ocr_enabled and reason in ("blank_or_no_text", "too_short",
+                                      "high_replacement_ratio") and p in ocr_res:
             res = ocr_res[p]
             status, reason = gate_ocr(res)
             if status == "approved" or "error" not in res:

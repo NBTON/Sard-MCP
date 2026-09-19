@@ -1,4 +1,28 @@
-# Extraction notes (measured 18–19 Sep 2026; OCR section added for r2)
+# Extraction notes (measured 18–19 Sep 2026; OCR section added for r2, Atlal rule for r3)
+
+## r3: Atlal engine override + OCR for font-corrupt pages
+
+Atlal journals (all 3 vols) use a font/encoding where PDFium emits
+Arabic words in reverse order while pypdf preserves correct order and
+completeness (91–104% of PDFium chars, no truncation; verified on
+renders `quality-sample/r3`: Atlal-30 p94, atlal32 p132, mixed caption
+pages p188/p191, English two-column p282 with correct column order).
+`extract_page` therefore prefers pypdf for the three Atlal files
+(`PYPDF_ONLY_DOCS`, regression-tested); every other doc keeps the
+script-ratio rule. Residual pypdf quirks on Atlal pages: bidi
+number-plate shuffles on mixed header lines and occasional mid-line
+fragment splits — retrieval-OK, display quotes need care (same bar as
+r1 raw passages).
+
+The 7 regional booklets have a corrupt text layer (3–14% U+FFFD, same
+font family as Riyadh), so `resolve_pages` now also sends
+`high_replacement_ratio` pages to the local-OCR fallback (previously
+blank/short only). The r2 gate (conf ≥ 60) is unchanged: booklet prose
+passes at 70–86, photo/cover garbage fails at ~35–45, and five real
+content pages lost to spread-layout confidence depression (55–59) stay
+excluded because the same band holds garbage pages (no clean threshold;
+evidence in `quality-sample/r3/booklet_excluded_ocr.txt`). Booklet
+spreads interleave both sides line-by-line in PSM-6 OCR text.
 
 ## Local OCR fallback (r2, scanned regional books)
 

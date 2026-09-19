@@ -15,6 +15,9 @@ CASES = [
     ("bagarUrban-and-Handicrafts.pdf", 97, "pdfium"),
     ("Riyadh.pdf", 21, "pdfium"),
     ("enternace-to-west-old.pdf", 2, "pdfium"),
+    ("Atlal-30-web-pdf.pdf", 94, "pypdf"),           # Atlal Arabic; pdfium reverses it
+    ("atlal21.pdf", 5, "pypdf"),                     # (content is Atlal vol. 31)
+    ("atlal32.pdf", 132, "pypdf"),
 ]
 
 

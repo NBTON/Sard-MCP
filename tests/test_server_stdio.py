@@ -54,7 +54,7 @@ def run_stdio(home, requests):
     proc = subprocess.Popen(
         [sys.executable, "-c", "from sard_mcp.server import main; main()"],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        text=True, bufsize=1, cwd=str(PROJECT_ROOT),
+        text=True, encoding="utf-8", bufsize=1, cwd=str(PROJECT_ROOT),
         env={"PATH": os.environ["PATH"], "SYSTEMROOT": os.environ.get("SYSTEMROOT", ""),
               "SARD_HOME": str(home), "PYTHONUTF8": "1",
               "SARD_ENV_FILE": str(home / "empty.env")},

@@ -79,6 +79,33 @@ def test_parallel_renders_same_pdf(tmp_path):
     assert all(s > 0 for s in sizes)
 
 
+def _fake_settings(home):
+    from sard_mcp.config import Settings
+    return Settings(home=home, db_path=home / "t.db", source_dir=SRC)
+
+
+@pytest.mark.skipif(not (SRC / "al-baha.pdf").exists(), reason="source PDFs not mounted")
+def test_resolve_pages_ocrs_replacement_corrupt(tmp_path, monkeypatch):
+    """Font-corrupt (high-replacement) pages get the OCR fallback, not silent exclusion."""
+    from sard_mcp import extract as X
+    settings = _fake_settings(tmp_path)
+    pdf = SRC / "al-baha.pdf"
+    info = X.extract_page(pdf, 3)  # PDF p4: dense content, ~6% U+FFFD
+    assert cli.gate_page(info, False)[1] == "high_replacement_ratio"
+    good = {4: {"text": "نص تجريبي " * 30, "mean_conf": 80.0, "words": 60}}
+    monkeypatch.setattr(ocr, "ocr_doc_pages", lambda *a, **k: good)
+    resolved = cli.resolve_pages(settings, pdf, [4], True, False, 1)
+    assert resolved[4]["status"] == "approved"
+    assert resolved[4]["info"]["engine"] == ocr.ENGINE_LABEL
+    bad = {4: {"text": "x" * 200, "mean_conf": 35.0, "words": 100}}
+    monkeypatch.setattr(ocr, "ocr_doc_pages", lambda *a, **k: bad)
+    resolved = cli.resolve_pages(settings, pdf, [4], True, False, 1)
+    assert (resolved[4]["status"], resolved[4]["reason"]) == ("excluded", "ocr_low_confidence")
+    # Without --ocr the corrupt page stays excluded with the text-gate reason.
+    resolved = cli.resolve_pages(settings, pdf, [4], False, False, 1)
+    assert (resolved[4]["status"], resolved[4]["reason"]) == ("excluded", "high_replacement_ratio")
+
+
 def test_pages_migration_and_nullable_conf(tmp_path):
     import sqlite3
 
